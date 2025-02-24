@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:isar_benchmark/executor/executor.dart';
 import 'package:isar_benchmark/models/model.dart';
-import 'package:isar_benchmark/models/realm_model.dart';
+import 'package:isar_benchmark/models/realm_model_c.dart';
 import 'package:realm/realm.dart' hide RealmModel;
 
 class RealmExecutor extends Executor<Realm> {
@@ -14,7 +14,7 @@ class RealmExecutor extends Executor<Realm> {
   @override
   FutureOr<Realm> prepareDatabase() {
     final config = Configuration.local(
-      [RealmModel.schema],
+      [RealmModelC.schema],
       path: realmFile,
     );
     return Realm(config);
@@ -38,7 +38,7 @@ class RealmExecutor extends Executor<Realm> {
       },
       (realm) {
         for (var id in idsToGet) {
-          realmToModel(realm.find<RealmModel>(id)!);
+          realmToModel(realm.find<RealmModelC>(id)!);
         }
       },
     );
@@ -46,7 +46,7 @@ class RealmExecutor extends Executor<Realm> {
 
   @override
   Stream<int> insert(List<Model> models) {
-    late List<RealmModel> realmModels;
+    late List<RealmModelC> realmModels;
     return runBenchmark(prepare: (realm) {
       realmModels = models.map(modelToRealm).toList();
     }, (realm) {
@@ -66,7 +66,7 @@ class RealmExecutor extends Executor<Realm> {
         });
       },
       (realm) {
-        final objects = realm.query<RealmModel>("archived == true");
+        final objects = realm.query<RealmModelC>("archived == true");
         realm.write(() {
           for (final object in objects) {
             object.archived = false;
@@ -78,7 +78,7 @@ class RealmExecutor extends Executor<Realm> {
 
   @override
   Stream<int> delete(List<Model> models) {
-    late List<RealmModel> modelsToDelete;
+    late List<RealmModelC> modelsToDelete;
     return runBenchmark(
       prepare: (realm) {
         final realmModels = models.map(modelToRealm).toList();
@@ -106,7 +106,7 @@ class RealmExecutor extends Executor<Realm> {
         });
       },
       (realm) {
-        final results = realm.query<RealmModel>(
+        final results = realm.query<RealmModelC>(
             "ANY words contains 'time' OR title CONTAINS 'a'");
         for (var result in results) {
           realmToModel(result);
@@ -126,7 +126,7 @@ class RealmExecutor extends Executor<Realm> {
       },
       (realm) {
         final results =
-            realm.query<RealmModel>('archived == true SORT(title ASCENDING)');
+            realm.query<RealmModelC>('archived == true SORT(title ASCENDING)');
         for (var result in results) {
           realmToModel(result);
         }

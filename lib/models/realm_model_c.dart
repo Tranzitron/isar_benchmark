@@ -1,11 +1,10 @@
 import 'package:isar_benchmark/models/model.dart';
-import 'package:realm/realm.dart' hide RealmModel;
-import 'package:realm/realm.dart' as realm;
+import 'package:realm/realm.dart';
 
-part 'realm_model.g.dart';
+part 'realm_model_c.realm.dart';
 
-@realm.RealmModel()
-class _RealmModel {
+@RealmModel()
+class _RealmModelC {
   @PrimaryKey()
   late int id;
 
@@ -20,8 +19,8 @@ class _RealmModel {
   late bool archived;
 }
 
-RealmModel modelToRealm(Model model) {
-  return RealmModel(
+RealmModelC modelToRealm(Model model) {
+  return RealmModelC(
     model.id,
     model.title,
     model.wordCount,
@@ -31,7 +30,7 @@ RealmModel modelToRealm(Model model) {
   );
 }
 
-Model realmToModel(RealmModel model) {
+Model realmToModel(RealmModelC model) {
   return Model(
     id: model.id,
     title: model.title,
