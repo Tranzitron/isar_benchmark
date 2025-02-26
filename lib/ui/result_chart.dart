@@ -6,9 +6,9 @@ class ResultChart extends StatelessWidget {
   final List<RunnerResult> results;
 
   const ResultChart({
-    Key? key,
+    super.key,
     required this.results,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class ResultChart extends StatelessWidget {
       }
     }
     return BarChart(
-      swapAnimationDuration: Duration.zero,
+      duration: Duration.zero,
       BarChartData(
         barTouchData: getBarTouchData(theme),
         titlesData: getTitlesData(theme),
@@ -51,7 +51,6 @@ class ResultChart extends StatelessWidget {
     return BarTouchData(
       enabled: false,
       touchTooltipData: BarTouchTooltipData(
-        tooltipBgColor: Colors.transparent,
         tooltipPadding: const EdgeInsets.all(0),
         tooltipMargin: 5,
         getTooltipItem: (_, int i, __, ___) {

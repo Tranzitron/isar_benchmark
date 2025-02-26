@@ -1,11 +1,11 @@
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:isar_benchmark/runner.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'dart:ui' as ui;
 
 import 'result_chart.dart';
 
@@ -17,11 +17,11 @@ class ResultContainer extends StatelessWidget {
   final int objectCount;
 
   const ResultContainer({
-    Key? key,
+    super.key,
     required this.deviceName,
     required this.results,
     required this.objectCount,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +39,12 @@ class ResultContainer extends StatelessWidget {
           children: [
             Text(
               results.first.benchmark.name,
-              style: theme.textTheme.headline6,
+              style: theme.textTheme.headlineLarge,
             ),
             Text(
               '$objectCount Objects on $deviceName',
               style:
-                  theme.textTheme.subtitle2!.copyWith(color: theme.hintColor),
+                  theme.textTheme.bodyMedium!.copyWith(color: theme.hintColor),
             ),
             const SizedBox(height: 10),
             Expanded(
@@ -65,6 +65,6 @@ class ResultContainer extends StatelessWidget {
     final pngBytes = byteData!.buffer.asUint8List();
     final imgFile = File('$directory/photo.png');
     imgFile.writeAsBytes(pngBytes);
-    await Share.shareFiles([imgFile.path]);
+    await Share.shareXFiles([XFile(imgFile.path)]);
   }
 }

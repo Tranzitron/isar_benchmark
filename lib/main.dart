@@ -43,10 +43,10 @@ class App extends StatelessWidget {
   final String directory;
 
   const App({
-    Key? key,
+    super.key,
     required this.directory,
     required this.deviceName,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +62,8 @@ class App extends StatelessWidget {
           onSecondary: Color(0xff243140),
           error: Color(0xffffb4a9),
           onError: Color(0xff680003),
-          background: Color(0xff1b1b1d),
-          onBackground: Color(0xffe3e2e6),
+          surfaceContainer: Color(0xff1b1b1d),
+          onSurfaceVariant: Color(0xffe3e2e6),
           surface: Color(0xff1b1b1d),
           onSurface: Color(0xffe3e2e6),
         ),
@@ -89,10 +89,10 @@ class BenchmarkArea extends StatefulWidget {
   final String directory;
 
   const BenchmarkArea({
-    Key? key,
+    super.key,
     required this.directory,
     required this.deviceName,
-  }) : super(key: key);
+  });
 
   @override
   State<BenchmarkArea> createState() => _BenchmarkAreaState();
